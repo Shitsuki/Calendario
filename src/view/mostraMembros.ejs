@@ -1,0 +1,14 @@
+<%- include('includes/head') %>
+<%- include('includes/navbar') %>
+<link rel="stylesheet" href="css/main.css">
+
+<body id="list-body">            
+    <div id="container">
+        <% membros.forEach(membros => { %>
+         <h3><p><%=membros.nome %> </p></h3>
+        <% }) %>
+        <div>
+            <a href="./adicionarMembro" id="new-memb">Adicionar Participantes</a>
+        </div>
+    </div>
+</body>

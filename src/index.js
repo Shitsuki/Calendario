@@ -11,6 +11,7 @@ app.use(express.urlencoded({
 app.use(express.json());
 
 const session = require('express-session');
+
 app.use(session({
     secret: 'oeRf3fJ4eG3flxv30XvUcuOcDwoLyJtboDql',
     resave: false,
@@ -24,7 +25,7 @@ app.use(express.static('public'));
 
 app.get('*', (req, res, next) => {
     console.log(req.url)
-    if (req.url != '/usuarios/login' && req.url != '/usuarios/cadastro' && req.url != '/') {
+    if (req.url != '/usuarios/login' && req.url != '/usuarios/cadastro' && req.url != '/usuarios/cadasteam' && req.url != '/') {
         if (!req.session.usuario) {
             res.redirect('/usuarios/login')
         } else {
@@ -39,7 +40,7 @@ const usuariosRoutes = require('./routes/usuarios-routes');
 app.use('/usuarios', usuariosRoutes);
 
 app.get('/', (req, res) => {
-    res.redirect('/grupos');
+    res.redirect('/usuarios/login');
 });
 
 app.use('*', (req, res) => {
@@ -48,6 +49,5 @@ app.use('*', (req, res) => {
     `);
 })
 const dbcon = require('./config/connection-db');
-console.log(dbcon);
 
 app.listen(3000, () => console.log(`Server iniciado na porta 3000`));

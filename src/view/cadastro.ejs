@@ -1,9 +1,9 @@
 <%- include('includes/head') %>
-<%- include('includes/navbar') %>
+
 <link rel="stylesheet" href="css/main.css">
 
 <body id="list-body">            
-    <form id="log-all" action="cadastro" method="POST">
+    <form id="log-all" action="cadastro" method="POST" enctype="multipart/form-data">
         <img src="https://i.pinimg.com/originals/2d/5b/aa/2d5baa7fac6be9b9cfd29144c76d62bb.png" width="20%">
         <div>
             <input type="text" name="nome" placeholder="Nome">
@@ -17,6 +17,11 @@
             <input type="password" name="senha" placeholder="Senha">
         </div>
 
+        <div>
+            <label for="imagem">Escolha uma foto de perfil</label>
+            <input style="margin: auto;" type="file" name="imagem" id="imagem">
+        </div>
+        
         <div>
             <a href="./login" id="new-memb">Logar</a>
         </div>

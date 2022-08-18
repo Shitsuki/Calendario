@@ -34,9 +34,8 @@ class TeamUserDAO {
 
     }
 
-
     static async getMembrosDoGrupo(grupo){
-        const sql = 'SELECT usuario.nome FROM TEAM join usuario_team on usuario_team.team_id = team.id join usuario on usuario_team.user_email = usuario.email where team.id = $1';
+        const sql = 'SELECT usuario.nome, usuario.profile FROM TEAM join usuario_team on usuario_team.team_id = team.id join usuario on usuario_team.user_email = usuario.email where team.id = $1';
         const result = await dbcon.query(sql, [grupo]);
         let membros= [];
         for (let i = 0; i < result.rows.length; i++) {

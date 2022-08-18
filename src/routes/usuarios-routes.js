@@ -14,6 +14,8 @@ routes.get('/login', usuarioController.mostraLogin);
 
 routes.get('/cadastro', usuarioController.mostraCadastro);
 
+routes.get('/logout', usuarioController.logout);
+
 routes.post('/cadastro', upload.single("imagem"), usuarioController.cadastro);
 
 routes.get('/cadasteam', teamController.mostraCadastroTeam);
@@ -27,5 +29,6 @@ routes.get('/:id/membros', teamController.mostraMembrosPorTime);
 routes.get('/:id/adicionarMembro', teamController.mostraAddMembro);
 
 routes.post('/:id/adicionarMembro', teamController.addmembro);
+
 
 module.exports = routes;

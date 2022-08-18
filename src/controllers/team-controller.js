@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const { Team, TeamDAO } = require('../models/team');
-const { TeamUser, TeamUserDAO, Usuario_team } = require('../models/team-usuario');
+const { TeamUserDAO, Usuario_team } = require('../models/team-usuario');
 const { UsuarioDAO, Usuario } = require('../models/usuario');
 
 class TeamController {
@@ -11,25 +11,24 @@ class TeamController {
 
     async cadastroTeam(req, res) {
         const teamBody = req.body;
+        const times = await TeamDAO.getTimes();
         try{
-        const time = new Team(teamBody.nome, teamBody.descricao, req.session.usuario.email);
-     
-        const membro = new TeamUser(req.session.usuario.email, time);
-        const result = await TeamDAO.cadastrar(time);
-        const usuario = await UsuarioDAO.emailsearch(req.session.usuario.email);
+            const team = new Team(teamBody.nome, teamBody.descricao, req.session.usuario.email); 
+            const result = await TeamDAO.cadastrar(team);
+            const usuario = await UsuarioDAO.emailsearch(req.session.usuario.email);
         if (usuario) {
             await TeamUserDAO.cadastrarMembroGrupo(req.session.usuario.email, result.rows[0].id);
+        }} catch(error){
+            console.log(error)
         }
-    } catch(error){
-        console.log(error)
-    }
-        return res.redirect('times');
+        return res.render('verTimes', {times});
 
     }
     
-    async mostraTimes(req, res){
-        const times= await TeamDAO.getTimes(); 
-        
+    async mostraTimes(req, res) {
+        const email = req.session.usuario.email;
+        const times = await TeamDAO.getTimesUser(email);
+
         return res.render('verTimes', {times});
     }
 
@@ -58,7 +57,7 @@ class TeamController {
                     return res.render('adicionarMembro');
                 } else {
                     TeamUserDAO.cadastrarMembroGrupo(email, id);
-                    res.redirect("/");
+                    res.redirect("times");
                 }
             } else {
                 msg.titulo = "Não foi encontrado esse usuario";

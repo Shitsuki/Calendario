@@ -25,7 +25,8 @@ app.use(express.static('public'));
 
 app.get('*', (req, res, next) => {
     console.log(req.url)
-    if (req.url != '/usuarios/login' && req.url != '/usuarios/cadastro' && req.url != '/usuarios/cadasteam' && req.url != '/') {
+    if (req.url != '/usuarios/login' && req.url != '/usuarios/cadastro' && req.url != '/usuarios/cadasteam' 
+        && req.url != '/' && req.url != '/usuarios/times') {
         if (!req.session.usuario) {
             res.redirect('/usuarios/login')
         } else {

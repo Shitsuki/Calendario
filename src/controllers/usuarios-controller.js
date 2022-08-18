@@ -45,25 +45,11 @@ class UsuariosController {
             req.session.usuario = usuario;
             return res.redirect('verTimes');
         }
+    }
 
-
-
-
-        /*
-        const { nome, email, senha } = req.body;
-       
- 
-        const usuarioEncontrado = await UsuarioDAO.buscaPeloEmail(email);
-
-        if (usuarioEncontrado) {
-            return res.render('erro', { erro: 'E-mail em uso' });
-        } else {
-
-        const usuario = new Usuario(null, nome, email, senha, imagem);
-        await UsuarioDAO.cadastrar(usuario);
-
-        req.session.usuario = usuario;
-        return res.redirect('/empresas/opcoes');*/
+    async logout(req, res) {
+        req.session.usuario = null;
+        return res.redirect("login")
     }
 }
 

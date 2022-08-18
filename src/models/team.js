@@ -28,6 +28,12 @@ class TeamDAO {
         return result.rows;
     }
 
+    static async getTimesUser(email) {
+        const sql = 'SELECT team.nome, team.id, team.descricao FROM TEAM join usuario_team on usuario_team.team_id = team.id join usuario on usuario_team.user_email = usuario.email where usuario_team.user_email = $1';
+        let result = await dbcon.query(sql, [email]);
+        return result.rows;
+    }
+
     static async getMembrosDoGrupo(grupo){
         const sql = 'SELECT usuario.nome FROM TEAM join usuario_team on usuario_team.team_id = team.id join usuario on usuario_team.user_email = usuario.email where team.id = $1';
         const result = await dbcon.query(sql, [grupo]);
